@@ -5,10 +5,19 @@ Caffe implementation of SSD detection on MobileNetv2, converted from tensorflow.
 Tensorflow and Caffe version [SSD](https://github.com/weiliu89/caffe) is properly installed on your computer.
 
 ### Usage
-0. Firstly you should download the original model from [tensorflow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md).
-1. Use gen_model.py to generate the train.prototxt and deploy.prototxt (or use the default prototxt).
+0. Firstly you should download the original model from [tensorflow](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). Or use the following command.
+
+```shell
+cd MobileNetv2-SSDLite/ssdlite/ 
+wget http://download.tensorflow.org/models/object_detection/ssdlite_mobilenet_v2_coco_2018_05_09.tar.gz 
+tar -zvxf ssdlite_mobilenet_v2_coco_2018_05_09.tar.gz
 ```
-python gen_model.py -s deploy -c 91 >deploy.prototxt
+
+1. Use gen_model.py to generate the train.prototxt and deploy.prototxt (or use the default prototxt).
+
+   CLASS_NUM = number of classes + 1. (1 presents background)
+```python
+python gen_model.py -s deploy -c CLASS_NUM >deploy.prototxt
 ```
 2. Use dump_tensorflow_weights.py to dump the weights of conv layer and batchnorm layer.
 3. Use load_caffe_weights.py to load the dumped weights to deploy.caffemodel.
@@ -18,11 +27,11 @@ python gen_model.py -s deploy -c 91 >deploy.prototxt
 ### Train your own dataset
 1. Generate the trainval_lmdb and test_lmdb from your dataset.
 2. Write a labelmap.prototxt
-3. Use gen_model.py to generate some prototxt files, replace the "CLASS_NUM" with class number of your own dataset.
-```
-python gen_model.py -s train -c CLASS_NUM >train.prototxt
-python gen_model.py -s test -c CLASS_NUM >test.prototxt
-python gen_model.py -s deploy -c CLASS_NUM >deploy.prototxt
+3. Use gen_model.py to generate some prototxt files, replace the "CLASS_NUM" with class number of your own dataset and background. eg. VOC dataset has 20 classes, now CLASS_NUM should be 21. Offset problem is the pad diff between TensorFlow and caffe, so add "--tfpad" can solve this issue.
+```shell
+python gen_model.py -s train -c CLASS_NUM --tfpad >train.prototxt
+python gen_model.py -s test -c CLASS_NUM --tfpad >test.prototxt
+python gen_model.py -s deploy -c CLASS_NUM --tfpad >deploy.prototxt
 ```
 4. Copy coco/solver_train.prototxt and coco/train.sh to your project and start training.
 
