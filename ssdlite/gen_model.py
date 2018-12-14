@@ -5,7 +5,7 @@ import logging
 import math
 
 try:
-    caffe_root = '/home/yaochuanqi/work/ssd/caffe/build2/install/'
+    caffe_root = '/home/alpha/DeepLearning/ssd/'
     sys.path.insert(0, caffe_root + 'python')
     import caffe
     from caffe.proto import caffe_pb2
@@ -272,7 +272,8 @@ class CaffeNetGenerator:
        self.need_silence_layer.append(name + "/margin1")
        self.need_silence_layer.append(name + "/margin2")
     
-    def conv(self, name, output, kernel, stride=1, group=1, bias=False, bottom=None):
+    # fix here, just set Default bias=True.
+    def conv(self, name, output, kernel, stride=1, group=1, bias=True, bottom=None): 
         layer = self.net.layer.add()
         layer.name = name
         if bottom is None:
@@ -335,7 +336,7 @@ class CaffeNetGenerator:
             param.lr_mult = mul[0]
             param.decay_mult = mul[1]
         layer.scale_param.filler.value = 1
-        layer.scale_param.bias_term = True
+        layer.scale_param.bias_term = True # fix here
         layer.scale_param.bias_filler.value = 0
 
     def relu(self, name):
@@ -474,6 +475,15 @@ class CaffeNetGenerator:
       self.bn(name)
       self.relu(name)
 
+    # add conv_depthwise_new from conv_depthwise, 
+    # for _mbox_conf/depthwise and _mbox_loc/depthwise with bias = false 
+    def conv_depthwise_new(self, name, inp, stride, bottom=None):
+      inp = int(inp * self.size)
+      self.conv(name, inp, 3, stride, inp, bottom=bottom, bias=False)
+      self.bn(name)
+      self.relu(name)
+
+
     def conv_expand(self, name, inp, outp):
       inp = int(inp * self.size)
       outp = int(outp * self.size)
@@ -501,14 +511,14 @@ class CaffeNetGenerator:
 
     def mbox_conf_ssdlite(self, bottom, inp, num):
        name = bottom + "_mbox_conf"
-       self.conv_depthwise(name + '/depthwise', inp, 1, bottom=bottom)
+       self.conv_depthwise_new(name + '/depthwise', inp, 1, bottom=bottom) # fix here
        self.conv(name, num, 1, bias=True)
        self.permute(name)
        self.flatten(name)
 
     def mbox_loc_ssdlite(self, bottom, inp, num):
        name = bottom + "_mbox_loc"
-       self.conv_depthwise(name + '/depthwise', inp, 1, bottom=bottom)
+       self.conv_depthwise_new(name + '/depthwise', inp, 1, bottom=bottom) # fix here
        self.conv(name, num, 1, bias=True)
        self.permute(name)
        self.flatten(name)
@@ -814,3 +824,4 @@ if __name__ == '__main__':
     net = CaffeNetGenerator(net_specs)
     net.generate(FLAGS)
     print text_format.MessageToString(net_specs, float_format=".5g")
+
