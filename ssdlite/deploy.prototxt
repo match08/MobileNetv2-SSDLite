@@ -57,7 +57,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 32
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -148,7 +148,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 96
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -238,7 +238,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 144
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -336,7 +336,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 144
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -426,7 +426,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 192
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -523,7 +523,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 192
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -621,7 +621,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 192
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -711,7 +711,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 384
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -808,7 +808,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 384
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -905,7 +905,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 384
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1002,7 +1002,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 384
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1092,7 +1092,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 576
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1189,7 +1189,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 576
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1287,7 +1287,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 576
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1377,7 +1377,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 960
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1474,7 +1474,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 960
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1571,7 +1571,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 960
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1693,7 +1693,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 256
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1790,7 +1790,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 128
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1887,7 +1887,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 128
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -1984,7 +1984,7 @@ layer {
     kernel_size: 3
     stride: 2
     group: 64
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2046,7 +2046,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 576
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2163,7 +2163,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 576
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2298,7 +2298,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 1280
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2415,7 +2415,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 1280
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2552,7 +2552,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 512
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2669,7 +2669,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 512
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2806,7 +2806,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 256
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -2923,7 +2923,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 256
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -3060,7 +3060,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 256
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -3177,7 +3177,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 256
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -3314,7 +3314,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 128
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
@@ -3431,7 +3431,7 @@ layer {
     pad: 1
     kernel_size: 3
     group: 128
-    #engine: CAFFE
+    engine: CAFFE
     weight_filler {
       type: "msra"
     }
