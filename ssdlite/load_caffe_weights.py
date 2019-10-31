@@ -1,13 +1,21 @@
+'''
+@Author: match08
+@Date: 2019-10-31 10:45:51
+@LastEditTime: 2019-10-31 16:57:21
+@LastEditors: Please set LastEditors
+@Description: In User Settings Edit
+@FilePath: /MobileNetv2-SSDLite/ssdlite/load_caffe_weights.py
+'''
 import numpy as np  
 import sys,os  
-caffe_root = '/home/yaochuanqi/work/ssd/caffe/'
+caffe_root = '/home/tracker/Documents/libs/caffe-ssd/ssd/build/install/'
 sys.path.insert(0, caffe_root + 'python')  
-import caffe  
+import caffe
 
-deploy_proto = 'deploy.prototxt'  
-save_model = 'deploy.caffemodel'
+deploy_proto = 'ssdlite/deploy.prototxt'  
+save_model = 'ssdlite/deploy.caffemodel'
 
-weights_dir = 'output'
+weights_dir = 'ssdlite/output'
 box_layers = ['conv_13/expand', 'Conv_1', 'layer_19_2_2', 'layer_19_2_3', 'layer_19_2_4', 'layer_19_2_5']
 def load_weights(path, shape=None):
     weights = None
@@ -19,9 +27,9 @@ def load_weights(path, shape=None):
     return weights
 
 def load_data(net):
-    for key in net.params.iterkeys():
+    for key in net.params.keys():
         if type(net.params[key]) is caffe._caffe.BlobVec:
-            print key
+            print (key)
             if 'mbox' not in key and (key.startswith("conv") or key.startswith("Conv") or key.startswith("layer")):
                 print('conv')
                 if key.endswith("/bn"):
@@ -57,7 +65,7 @@ def load_data(net):
                     net.params[key][0].data[...] = load_weights(prefix + '_gamma.dat')
                     net.params[key][1].data[...] = load_weights(prefix + '_beta.dat')
                 else:
-                    print key
+                    print (key)
                     net.params[key][0].data[...] = load_weights(prefix + '_weights.dat', net.params[key][0].data.shape)
                     if len(net.params[key]) > 1:
                         net.params[key][1].data[...] = load_weights(prefix + '_biases.dat')

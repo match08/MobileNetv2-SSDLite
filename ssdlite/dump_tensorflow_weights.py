@@ -1,3 +1,11 @@
+'''
+@Author: your name
+@Date: 2019-10-31 10:38:13
+@LastEditTime: 2019-10-31 10:44:52
+@LastEditors: Please set LastEditors
+@Description: In User Settings Edit
+@FilePath: /MobileNetv2-SSDLite/ssdlite/dump_tensorflow_weights.py
+'''
 import tensorflow as tf
 import cv2
 import numpy as np
@@ -10,8 +18,8 @@ def graph_create(graphpath):
 
         return tf.import_graph_def(graphdef, name='',return_elements=[])
 
-graph_create("ssdlite_mobilenet_v2_coco_2018_05_09/frozen_inference_graph.pb")
-save_dir = ('output')
+graph_create("ssdlite/models/ssdlite_mobilenet_v2_coco_2018_05_09/frozen_inference_graph.pb")
+save_dir = ('ssdlite/output')
 if not os.path.exists(save_dir):
     os.mkdir(save_dir)
 
@@ -60,7 +68,7 @@ with tf.Session() as sess:
          elif  'BoxPredictor' in names[0]:
               layer_name = names[0] + '_' + names[1]
          output_name = layer_name + "_"  + paratype
-         print output_name
+         print (output_name)
          #print ts.get_shape()
          
          if len(data.shape) == 4:
@@ -105,7 +113,7 @@ with tf.Session() as sess:
                          new_weights[5] = tmp[4]
                          caffe_weights = new_weights.reshape(origin_shape).copy()
              caffe_weights.tofile(os.path.join(save_dir, output_name + '.dat'))
-             print caffe_weights.shape
+             print (caffe_weights.shape)
          else:
              caffe_bias = data
              boxes = 0
@@ -145,6 +153,6 @@ with tf.Session() as sess:
                          new_bias[1] = tmp[1]
                          new_bias[2] = tmp[2]
                          caffe_bias = new_bias.flatten()
-                 print caffe_bias.shape
+                 print (caffe_bias.shape)
              caffe_bias.tofile(os.path.join(save_dir, output_name + '.dat'))
 

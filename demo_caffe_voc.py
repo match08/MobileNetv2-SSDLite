@@ -1,7 +1,15 @@
+'''
+@Author: bai
+@Date: 2019-10-31 16:58:20
+@LastEditTime: 2019-10-31 16:59:14
+@LastEditors: Please set LastEditors
+@Description: In User Settings Edit
+@FilePath: /MobileNetv2-SSDLite/demo_caffe_voc.py
+'''
 import numpy as np  
 import sys,os  
 import cv2
-caffe_root = '/home/yaochuanqi/work/tmp/ssd/'
+caffe_root = '/home/tracker/Documents/libs/caffe-ssd/ssd/build/install/'
 sys.path.insert(0, caffe_root + 'python')  
 import caffe  
 

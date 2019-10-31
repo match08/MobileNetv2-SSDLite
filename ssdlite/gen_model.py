@@ -1,3 +1,11 @@
+'''
+@Author: your name
+@Date: 2019-10-31 10:31:19
+@LastEditTime: 2019-10-31 17:35:50
+@LastEditors: Please set LastEditors
+@Description: In User Settings Edit
+@FilePath: /MobileNetv2-SSDLite/ssdlite/gen_model.py
+'''
 import os
 import sys
 import argparse
@@ -5,7 +13,7 @@ import logging
 import math
 
 try:
-    caffe_root = '/home/alpha/DeepLearning/ssd/'
+    caffe_root = '/home/tracker/Documents/libs/caffe-ssd/caffe/build/install/'
     sys.path.insert(0, caffe_root + 'python')
     import caffe
     from caffe.proto import caffe_pb2
@@ -282,6 +290,7 @@ class CaffeNetGenerator:
         layer.type = "Convolution"
         layer.top.append(name)
         layer.convolution_param.num_output = output
+        layer.convolution_param.engine = 1 #caffe cudnn
         lr_decay_mult = [[1.0, 1.0], [2,0, 0.0]]
         #print name + "->" + str(bias)
         if self.nobn:
@@ -296,7 +305,7 @@ class CaffeNetGenerator:
         if group > 1:
             layer.convolution_param.group = group
         if kernel > 1:
-            layer.convolution_param.pad.append(kernel / 2)
+            layer.convolution_param.pad.append(int(kernel / 2))
         if stride > 1:
             layer.convolution_param.stride.append(stride)
         layer.convolution_param.kernel_size.append(kernel)
@@ -720,7 +729,7 @@ class CaffeNetGenerator:
         elif FLAGS.version == "2":
             self.gen_mobilev2_ssd()
         else:
-            print "version " + FLAGS.version + " is not supported"
+            print ("version " + FLAGS.version + " is not supported")
             exit(-1)
    
 def create_ssd_anchors(num_layers=6,
@@ -729,7 +738,7 @@ def create_ssd_anchors(num_layers=6,
     box_specs_list = []
     scales = [min_scale + (max_scale - min_scale) * i / (num_layers - 1)
               for i in range(num_layers)] + [1.0]
-    return zip(scales[:-1], scales[1:])
+    return list(zip(scales[:-1], scales[1:]))
 
 def compute_pad(inp, stride, tf=True):
     H = inp[0]
@@ -823,5 +832,5 @@ if __name__ == '__main__':
     net_specs = caffe_pb2.NetParameter()
     net = CaffeNetGenerator(net_specs)
     net.generate(FLAGS)
-    print text_format.MessageToString(net_specs, float_format=".5g")
+    print (text_format.MessageToString(net_specs, float_format=".5g"))
 

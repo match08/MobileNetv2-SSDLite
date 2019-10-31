@@ -1,22 +1,30 @@
+'''
+@Author: your name
+@Date: 2019-10-31 14:04:28
+@LastEditTime: 2019-10-31 16:53:23
+@LastEditors: Please set LastEditors
+@Description: In User Settings Edit
+@FilePath: /MobileNetv2-SSDLite/ssdlite/coco2voc.py
+'''
 import numpy as np  
 import sys,os  
 from scipy import misc
 import cv2
-caffe_root = '/home/yaochuanqi/work/tmp/ssd/'
+caffe_root = '/home/tracker/Documents/libs/caffe-ssd/ssd/build/install/'
 sys.path.insert(0, caffe_root + 'python')  
 import caffe  
 
 def load_net(net, net2):
-    #maps = [0,5,2,15,9,40,6,3,16,57,20,61,17,18,4,1,59,19,58,7,63]
+    # maps = [0,5,2,15,9,40,6,3,16,57,20,61,17,18,4,1,59,19,58,7,63]
     maps = [0,5,2,16,9,44,6,3,17,62,21,67,18,19,4,1,64,20,63,7,72]
-    for key in net.params.iterkeys():
+    for key in net.params.keys():
         if type(net.params[key]) is not caffe._caffe.BlobVec:
             break
         else:
             if key.endswith('mbox_conf'):
                 for i in range(len(net.params[key])):
                     wt = net.params[key][i].data
-                    x = wt.shape[0] / 91
+                    x = int(wt.shape[0] / 91)
                     wt = wt.reshape(x, 91, -1)
                     neww = np.ones((x, 21, wt.shape[2]))
                     print(neww.shape)
@@ -29,11 +37,11 @@ def load_net(net, net2):
                 for i in range(len(net.params[key])):
                     net2.params[key][i].data[...] = net.params[key][i].data
   
-from_file = "deploy.prototxt"
-from_model = "deploy.caffemodel"
+from_file = "ssdlite/deploy.prototxt"
+from_model = "ssdlite/deploy.caffemodel"
 
-net_file= 'voc/deploy.prototxt'  
-save_model='deploy_voc.caffemodel'
+net_file= 'ssdlite/voc/deploy.prototxt'  
+save_model='ssdlite/deploy_voc.caffemodel'
 
 net = caffe.Net(from_file,from_model,caffe.TEST)  
 net2 = caffe.Net(net_file,caffe.TRAIN)  
